@@ -31,8 +31,6 @@ export default {
     axios.get('http://localhost:1337/api/restaurants',{ headers: {"Authorization" : `Bearer `+token} })
       .then(response => {
         this.restaurants = response.data.data
-        console.log(response.data.data[0].attributes.imgPath)
-        console.log(response.data.data[0].attributes)
 
 
       })

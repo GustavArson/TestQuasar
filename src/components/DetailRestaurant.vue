@@ -1,6 +1,17 @@
 <template>
-  <h1>{{ $route.params.nom }}</h1>
-  <h1>{{ restaurant }}</h1>
+
+<!--  <p>{{restaurant}}</p>-->
+<!--  <p>{{restaurant.name}}</p>-->
+<!--  <p>{{restaurant}}</p>-->
+
+
+<!--  <p v-for="restaurant in restaurant">{{restaurant.name}}</p>-->
+  <div :key="index" v-for="(restaurant, index) in restaurant">
+    <h1>{{ restaurant.name }}</h1>
+    <img class="my-card" :src="'/img/'+ restaurant.imgPath" :alt="restaurant.name">
+    <p>{{ restaurant.description }}</p>
+  </div>
+
 
   <p></p>
 </template>
@@ -18,27 +29,14 @@ export default {
   },
 
   mounted () {
-
-    axios.get('http://localhost:1337/api/restaurants/McDonald\'s',{ headers: {"Authorization" : `Bearer `+token} })
+    let url = 'http://localhost:1337/api/restaurantByName/'+this.$route.params.nom;
+    axios.get(url,{ headers: {"Authorization" : `Bearer `+token} })
         .then(response => {
-          this.restaurant = response.data.data
-          console.log(response.data.data.attributes.name)
-          // response['data']['data'].forEach(restaurant => {
-          //   console.log(restaurant)
-          //   console.log(restaurant.attributes.name)
-          //   console.log(restaurant.id)
-          // })
+          this.restaurant = response
+          console.log(response.data)
+          console.log(this.restaurant)
+          // console.log(response.data)
         })
-
-        async function getUser() {
-    try {
-      const response = await axios.get(url);
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   }
 }
 
@@ -46,5 +44,10 @@ export default {
 </script>
 
 <style scoped>
+
+.my-card{
+  width: 100%;
+  max-width: 250px;
+}
 
 </style>
