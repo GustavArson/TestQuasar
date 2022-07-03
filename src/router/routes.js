@@ -23,6 +23,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Restaurant.vue') },
       { path: ':nom',name: 'detailRestaurant', component: () => import('components/DetailRestaurant.vue') },
+      { path: '', name: 'addRestaurant', component: () => import('components/addRestaurant.vue') },
 
     ]
   },
